@@ -9,6 +9,10 @@ import { readExcelFile } from "./utils/excel.js";
 // Connect to Database
 await connect();
 const tables = await getTables();
+if(tables.length == 0){
+  logger('info', "No Tables Found")
+  process.exit();
+}
 
 // Select Table
 const tableName = await select({
@@ -29,6 +33,12 @@ const fileName = await select({
   },[]),
 });
 const { headers, rows } = await readExcelFile(fileName);
+if(headers.length == 0 || rows.length == 0){
+  logger('info', "Columns    : ".padEnd(10) + headers);
+  logger('info', "Rows Count : ".padEnd(10) + rows.length);
+  logger('info', "Please Fill at least 1 columns and rows")
+  process.exit();
+}
 
 // Confirm
 console.log("==========================================================");

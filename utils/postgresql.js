@@ -70,7 +70,7 @@ export const insertData = async (tableName, headers, row, currentRowNumber) => {
     };
   } catch (err) {
     if(err.code == 23505) logger('info', `ROW (${currentRowNumber}) Error inserting data: ${err}`)
-    else logger('error', `Error inserting data: ${err}`)
+    else logger('error', `ROW (${currentRowNumber}) Error inserting data: ${err}`)
 
     return {
       status: "error",
